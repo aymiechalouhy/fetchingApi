@@ -19,7 +19,9 @@ Future<Iterable<SubCategories>> fetchCategories() async {
   // } else {
   //   throw Exception('Failed to load Categories');
   // }
-  final List<dynamic> responseJson = jsonDecode(res.body)["response"];
+
+  // List<dynamic>
+  final Iterable<dynamic> responseJson = jsonDecode(res.body)["response"];
   late Iterable<SubCategories> allCategories = responseJson
       .map((subCategoryJson) => SubCategories.fromJson(subCategoryJson));
   return allCategories;
@@ -40,13 +42,14 @@ class SubCategories {
 
   factory SubCategories.fromJson(Map<String, dynamic> json) {
     Iterable<SubCategories> subCats =
-        (json['subcategories'] as List<dynamic>)
+        // List<dynamic>
+        (json['subcategories'] as Iterable<dynamic>)
             .map((oneSub) => SubCategories.fromJson(oneSub));
     return SubCategories(
         id: json['_id'],
         name: json['name'],
         logo: json['logo'] ?? '',
-        subCategories:subCats);
+        subCategories: subCats);
   }
 }
 
@@ -127,7 +130,8 @@ class _MyAppState extends State<MyApp> {
   }
 }
 // awwal shi bedde shouf l fare2 bayna w ben l documentation (output[dynamic, list])
+// handling
 // tene shi lezim a3rif enno 3melna map metel ma 3melna >models >listCategories
 // zid images
-//zabbetla shakla name title 3 items per 1 column
-//Move the work to clickomart
+// zabbetla shakla name title 3 items per 1 column
+// Move the work to clickomart
